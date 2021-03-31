@@ -21,15 +21,25 @@ function dropDownMenu() {
 
 
     // initialize the dashboard with the first sample
-    demographicInfo(0);    
+    demographicInfo(0);
+    buildPlot(0);
 
   });
 }
 
 
 // 2-3. Create a function to build plots
+function buildPlot(sampleIdx) {
 
-  
+  // use d3 to fetch the data for the plots
+  d3.json("data/samples.json").then((importedData) => {    
+    arrayOfSamples = importedData.samples[sampleIdx];
+    console.log(arrayOfSamples);
+
+    // grab values from the response json object for plotting charts
+    otuIds = arrayOfSamples['otu_ids'];    
+    sampleValues = arrayOfSamples['sample_values'];
+    otuLabels = arrayOfSamples['otu_labels'];  
   
 
     //------------------------
@@ -45,8 +55,30 @@ function dropDownMenu() {
     //------------------------
     // Create a bubble chart that displays each sample.
 
-    
+    // create the data array for the plot
+    var bubbleData = [{
+      type: "scatter",
+      x: otuIds,
+      y: sampleValues,
+      text: otuLabels,
+      mode: "markers",
+      marker: {
+        size: sampleValues,
+        color: otuIds
+      }
+    }];
 
+    // define the plot layout
+    var bubbleLayout = {      
+      xaxis: {title: "OTU ID"}
+      //yaxis:
+    };
+
+    // Plot the bubble chart to the div tag with id "bubble"
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+
+  });    
+}
 
 
 // 4-5. Display each key-value pair (individual's demographic information) from the metadata JSON object for the sample selected in the dropdown menu.
