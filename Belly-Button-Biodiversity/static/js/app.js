@@ -121,8 +121,20 @@ function demographicInfo(sampleIdx) {
 
 
 // 6. Update all of the plots any time that a new sample is selected.
+function optionChanged(newSample) {
+  console.log(newSample);
 
+  d3.json("data/samples.json").then((importedData) => {
+    var subjectIds = importedData.names;
+    var nextIdx = subjectIds.findIndex(subj => subj === newSample);
+    console.log(nextIdx);
 
+    // call functions for the new sample
+    demographicInfo(nextIdx);
+    buildPlot(nextIdx);
 
+  });
+
+}
 
 dropDownMenu();
