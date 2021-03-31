@@ -47,7 +47,22 @@ function buildPlot(sampleIdx) {
     //------------------------
     // Create a horizontal bar chart corresponding with a sample from dropdown menu and display the top 10 OTUs found in that individual.
 
-    
+    // check the slicing of the first 10 objects for plotting    
+    console.log(otuIds.slice(0,10));
+    console.log(sampleValues.slice(0,10));
+    console.log(otuLabels.slice(0,10));
+
+    // create the data array for the plot
+    var hbarData = [{
+      type: "bar",
+      x: sampleValues.slice(0,10).reverse(),
+      y: otuIds.slice(0,10).map(id => `OTU ${id}`).reverse(),
+      text: otuLabels.slice(0,10).reverse(),
+      orientation: "h"
+    }];
+
+    // Render the plot to the div tag with id "bar"
+    Plotly.newPlot("bar", hbarData);    
 
     
     //------------------------
