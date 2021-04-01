@@ -33,13 +33,13 @@ function buildPlot(sampleIdx) {
 
   // use d3 to fetch the data for the plots
   d3.json("data/samples.json").then((importedData) => {    
-    arrayOfSamples = importedData.samples[sampleIdx];
+    var arrayOfSamples = importedData.samples[sampleIdx];
     console.log(arrayOfSamples);
 
     // grab values from the response json object for plotting charts
-    otuIds = arrayOfSamples['otu_ids'];    
-    sampleValues = arrayOfSamples['sample_values'];
-    otuLabels = arrayOfSamples['otu_labels'];  
+    var otuIds = arrayOfSamples['otu_ids'];    
+    var sampleValues = arrayOfSamples['sample_values'];
+    var otuLabels = arrayOfSamples['otu_labels'];  
   
 
     //------------------------
@@ -105,7 +105,7 @@ function demographicInfo(sampleIdx) {
     console.log(demographics);
 
     // use d3 to select 'Demographic Info' panel by id
-    infoPanel = d3.select("#sample-metadata");
+    var infoPanel = d3.select("#sample-metadata");
 
     // clear any previous input
     infoPanel.html("");
