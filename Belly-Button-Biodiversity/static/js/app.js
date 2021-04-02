@@ -121,8 +121,19 @@ function buildGaugeChart(sampleIdx) {
         type: "indicator",
         mode: "gauge+number",
         gauge: {
-          axis: { range: [0,9] },
-          bar: { color: "rgba(31,119,180,1)"}
+          axis: { range: [0,9], dtick: `tick0`, tickwidth: 2, tickcolor: "blue" },
+          bar: { color: "rgba(31,119,180,1)"},
+          steps: [
+            { range: [0, 1], color: "#ffeece", line: {color: "white", width: 2}},
+            { range: [1, 2], color: "#fee6b6", line: {color: "white", width: 2}},
+            { range: [2, 3], color: "#fee89a", line: {color: "white", width: 2}},
+            { range: [3, 4], color: "#fed585", line: {color: "white", width: 2}},
+            { range: [4, 5], color: "#fdbf70", line: {color: "white", width: 2}},
+            { range: [5, 6], color: "#fba55f", line: {color: "white", width: 2}},
+            { range: [6, 7], color: "#f78851", line: {color: "white", width: 2}},
+            { range: [7, 8], color: "#ef6d4a", line: {color: "white", width: 2}},
+            { range: [8, 9], color: "#e35449", line: {color: "white", width: 2}}
+          ]
         }
       }
     ];
