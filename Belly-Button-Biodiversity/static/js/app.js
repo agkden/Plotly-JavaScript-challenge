@@ -23,6 +23,7 @@ function dropDownMenu() {
     // initialize the dashboard with the first sample
     demographicInfo(0);
     buildPlot(0);
+    buildGaugeChart(0);
 
   });
 }
@@ -95,6 +96,46 @@ function buildPlot(sampleIdx) {
   });    
 }
 
+    //------------------------
+    //  Gauge Chart
+    //------------------------
+    // Create a Gauge Chart for the weekly washing frequency of the individual.
+
+function buildGaugeChart(sampleIdx) {
+
+  // use d3 to fetch the data for the plot
+  d3.json("data/samples.json").then((importedData) => {
+    var wfreqData = importedData.metadata[sampleIdx];
+    console.log(wfreqData);
+
+    // grab washing frequency values from the response json object for plotting chart
+    var wfreqNumber = wfreqData['wfreq'];
+    console.log(wfreqNumber);
+
+    // create the data array for the plot
+    var gaugeData = [
+      {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: wfreqNumber,
+        title: { text: "Scrubs per Week" },
+        type: "indicator",
+        mode: "gauge+number",
+        gauge: {
+          axis: { range: [0,9] },
+          bar: { color: "rgba(31,119,180,1)"}
+        }
+      }
+    ];
+    
+    // define the plot layout
+    var gaugeLayout = { width: 500, height: 400, margin: { t: 0, b: 0 } };
+
+    // Plot the gauge chart to the div tag with id "gauge"
+    Plotly.newPlot('gauge', gaugeData, gaugeLayout);
+
+  });  
+}
+
 
 // 4-5. Display each key-value pair (individual's demographic information) from the metadata JSON object for the sample selected in the dropdown menu.
 
@@ -132,6 +173,7 @@ function optionChanged(newSample) {
     // call functions for the new sample
     demographicInfo(nextIdx);
     buildPlot(nextIdx);
+    buildGaugeChart(nextIdx);
 
   });
 
