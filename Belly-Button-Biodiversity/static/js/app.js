@@ -62,8 +62,12 @@ function buildPlot(sampleIdx) {
       orientation: "h"
     }];
 
+    var hbarLayout ={
+      title: "<b>Top 10 OTUs</b> <br> Sample "+`${arrayOfSamples.id}`
+    }
+
     // Render the plot to the div tag with id "bar"
-    Plotly.newPlot("bar", hbarData);    
+    Plotly.newPlot("bar", hbarData, hbarLayout);    
 
     
     //------------------------
@@ -85,9 +89,10 @@ function buildPlot(sampleIdx) {
     }];
 
     // define the plot layout
-    var bubbleLayout = {      
+    var bubbleLayout = {     
+      title: "<b>Microbial Diversity found in Sample: </b> "+`${arrayOfSamples.id}`,
       xaxis: {title: "OTU ID"}
-      //yaxis:
+      
     };
 
     // Plot the bubble chart to the div tag with id "bubble"
