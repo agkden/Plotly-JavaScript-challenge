@@ -9,7 +9,7 @@ The dashboard has been developed in JavaScript using Plotly.js and D3.js.
 ---
 ### Final Dashboard
 
-* <p>The final dashboard is deployed on GitHub Pages and can be found <a href=https://agkden.github.io/ >here</a></p>
+* The final dashboard is deployed on GitHub Pages and can be found **[here](https://agkden.github.io/Plotly-JavaScript-challenge/Belly-Button-Biodiversity/)**
 
 * The screenshot is shown below:
 
