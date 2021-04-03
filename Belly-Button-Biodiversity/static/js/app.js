@@ -1,9 +1,5 @@
-// 1. Use the D3 library to read in 'samples.json'.
-d3.json("data/samples.json").then((importedData) => {
-  console.log(importedData);
-});
-
-// Create dropdown list of Subject IDs
+// Use the D3 library to read in 'samples.json' and
+// create dropdown list of Subject IDs
 function dropDownMenu() {
 
   // use d3 to select the dropdown html element
@@ -11,8 +7,7 @@ function dropDownMenu() {
 
   // fetch data from JSON samples['names'] and assign to variable
   d3.json("data/samples.json").then((importedData) => {
-    var subjectIds = importedData.names;
-    console.log(subjectIds);
+    var subjectIds = importedData.names;    
 
     // create dropdown menu
     subjectIds.forEach((individ) => {
@@ -29,13 +24,12 @@ function dropDownMenu() {
 }
 
 
-// 2-3. Create a function to build plots
+// Create a function to build plots
 function buildPlot(sampleIdx) {
 
   // use d3 to fetch the data for the plots
   d3.json("data/samples.json").then((importedData) => {    
-    var arrayOfSamples = importedData.samples[sampleIdx];
-    console.log(arrayOfSamples);
+    var arrayOfSamples = importedData.samples[sampleIdx];    
 
     // grab values from the response json object for plotting charts
     var otuIds = arrayOfSamples['otu_ids'];    
@@ -46,13 +40,9 @@ function buildPlot(sampleIdx) {
     //------------------------
     //  Horizontal Bar Chart
     //------------------------
-    // Create a horizontal bar chart corresponding with a sample from dropdown menu and display the top 10 OTUs found in that individual.
-
-    // check the slicing of the first 10 objects for plotting    
-    console.log(otuIds.slice(0,10));
-    console.log(sampleValues.slice(0,10));
-    console.log(otuLabels.slice(0,10));
-
+    // Create a horizontal bar chart corresponding with a sample from dropdown menu
+    // and display the top 10 OTUs found in that individual.
+    
     // create the data array for the plot
     var hbarData = [{
       type: "bar",
@@ -91,8 +81,7 @@ function buildPlot(sampleIdx) {
     // define the plot layout
     var bubbleLayout = {     
       title: "<b>Microbial Diversity found in Sample: </b> "+`${arrayOfSamples.id}`,
-      xaxis: {title: "OTU ID"}
-      
+      xaxis: {title: "OTU ID"}      
     };
 
     // Plot the bubble chart to the div tag with id "bubble"
@@ -110,13 +99,11 @@ function buildGaugeChart(sampleIdx) {
 
   // use d3 to fetch the data for the plot
   d3.json("data/samples.json").then((importedData) => {
-    var wfreqData = importedData.metadata[sampleIdx];
-    console.log(wfreqData);
+    var wfreqData = importedData.metadata[sampleIdx];    
 
     // grab washing frequency values from the response json object for plotting chart
     var wfreqNumber = wfreqData['wfreq'];
-    console.log(wfreqNumber);
-
+    
     // create the data array for the plot
     var gaugeData = [
       {
@@ -153,13 +140,13 @@ function buildGaugeChart(sampleIdx) {
 }
 
 
-// 4-5. Display each key-value pair (individual's demographic information) from the metadata JSON object for the sample selected in the dropdown menu.
+// Display each key-value pair (individual's demographic information) from the metadata JSON object
+// for the sample selected in the dropdown menu.
 
 function demographicInfo(sampleIdx) {
   
   d3.json("data/samples.json").then((importedData) => {
-    var demographics = importedData.metadata[sampleIdx];
-    console.log(demographics);
+    var demographics = importedData.metadata[sampleIdx];    
 
     // use d3 to select 'Demographic Info' panel by id
     var infoPanel = d3.select("#sample-metadata");
@@ -173,26 +160,22 @@ function demographicInfo(sampleIdx) {
     });
 
   });
-
 }
 
 
-// 6. Update all of the plots any time that a new sample is selected.
-function optionChanged(newSample) {
-  console.log(newSample);
+// Update all of the plots any time that a new sample is selected.
+function optionChanged(newSample) {  
 
   d3.json("data/samples.json").then((importedData) => {
     var subjectIds = importedData.names;
     var nextIdx = subjectIds.findIndex(subj => subj === newSample);
-    console.log(nextIdx);
-
+    
     // call functions for the new sample
     demographicInfo(nextIdx);
     buildPlot(nextIdx);
     buildGaugeChart(nextIdx);
 
   });
-
 }
 
 dropDownMenu();
